@@ -27,7 +27,9 @@ export function AIChat({
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
-  const { messages, sendMessage, status, input, setInput } = useChat({
+  const [input, setInput] = useState('')
+  
+  const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ 
       api: '/api/ai/chat',
       body: { projectId, currentFile }
@@ -45,8 +47,9 @@ export function AIChat({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!input.trim() || !canUseAI || isLoading) return
-    sendMessage({ text: input })
+    const trimmedInput = input.trim()
+    if (!trimmedInput || !canUseAI || isLoading) return
+    sendMessage({ text: trimmedInput })
     setInput('')
   }
 
@@ -219,7 +222,7 @@ export function AIChat({
           <Button 
             type="submit" 
             size="icon"
-            disabled={!input.trim() || !canUseAI || isLoading}
+            disabled={!input || !input.trim() || !canUseAI || isLoading}
           >
             <Send className="h-4 w-4" />
           </Button>

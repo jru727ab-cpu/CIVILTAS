@@ -439,7 +439,7 @@ export function EditorWorkspace({
           {/* Left Panel - File Tree + Git */}
           {showLeftPanel && !isMobile && (
             <>
-              <ResizablePanel defaultSize={20} minSize={15} maxSize={35}>
+              <ResizablePanel id="left-panel" order={1} defaultSize={20} minSize={15} maxSize={35}>
                 <div className="h-full flex flex-col bg-card/50">
                   <div className="flex-1 overflow-auto">
                     <FileTree
@@ -470,7 +470,11 @@ export function EditorWorkspace({
           )}
 
           {/* Center - Editor */}
-          <ResizablePanel defaultSize={showRightPanel ? 55 : 80}>
+          <ResizablePanel 
+            id="center-panel" 
+            order={2} 
+            defaultSize={showLeftPanel && showRightPanel ? 55 : showLeftPanel || showRightPanel ? 75 : 100}
+          >
             <div className="h-full flex flex-col">
               <EditorTabs
                 openFiles={openFiles}
@@ -503,7 +507,7 @@ export function EditorWorkspace({
           {showRightPanel && !isMobile && (
             <>
               <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={25} minSize={20} maxSize={40}>
+              <ResizablePanel id="right-panel" order={3} defaultSize={25} minSize={20} maxSize={40}>
                 <AIChat
                   projectId={projectId}
                   currentFile={activeFile ? { 
