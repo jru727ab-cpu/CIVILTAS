@@ -45,6 +45,26 @@ def test_gnosis_unlocked_at_final_age():
     assert s.gnosis_unlocked
 
 
+def test_advance_age_skips_to_highest_eligible_age():
+    s = GameState()
+    s.enlightenment = 150
+    advanced = s.advance_age_if_ready()
+    assert advanced
+    assert s.age_index == 2
+    assert s.age == AGES[2]
+    assert not s.gnosis_unlocked
+
+
+def test_high_enlightenment_from_start_unlocks_gnosis():
+    s = GameState()
+    s.enlightenment = 300
+    advanced = s.advance_age_if_ready()
+    assert advanced
+    assert s.age_index == 3
+    assert s.age == AGES[3]
+    assert s.gnosis_unlocked
+
+
 # ---------------------------------------------------------------------------
 # Resources
 # ---------------------------------------------------------------------------
