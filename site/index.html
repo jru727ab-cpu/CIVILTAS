@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CIVILTAS</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #111827;
+        --panel: #1f2937;
+        --text: #f9fafb;
+        --muted: #cbd5e1;
+        --accent: #f59e0b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(160deg, var(--bg), #020617);
+        color: var(--text);
+      }
+
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 5rem;
+      }
+
+      .hero,
+      .panel {
+        background: rgba(31, 41, 55, 0.92);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        border-radius: 18px;
+        padding: 2rem;
+        box-shadow: 0 18px 45px rgba(2, 6, 23, 0.35);
+      }
+
+      .hero {
+        margin-bottom: 1.5rem;
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        color: var(--accent);
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .tagline {
+        font-size: 1.15rem;
+        max-width: 48rem;
+      }
+
+      .cta {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.9rem 1.35rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #111827;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      code {
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.2rem 0.45rem;
+        border-radius: 0.4rem;
+        background: rgba(15, 23, 42, 0.9);
+        color: #fde68a;
+      }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p>Civilization-building strategy, now published live.</p>
+        <h1>CIVILTAS</h1>
+        <p class="tagline">
+          Lead a fledgling settlement from survival to Gnosis in this text-based Python game.
+          Harvest resources, grow your population, raise monuments, and pursue enlightenment.
+        </p>
+        <a class="cta" href="https://github.com/jru727ab-cpu/CIVILTAS">View the source on GitHub</a>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>What you do</h2>
+          <ul>
+            <li>Harvest food, wood, stone, and gold every turn.</li>
+            <li>Build farms, mines, temples, and libraries.</li>
+            <li>Balance growth, food consumption, and enlightenment.</li>
+            <li>Advance through four ages until you unlock Gnosis.</li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <h2>Play locally</h2>
+          <p>Clone the repository and run the game with Python 3.8 or newer.</p>
+          <code>python civiltas.py</code>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
