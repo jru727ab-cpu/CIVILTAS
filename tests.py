@@ -9,6 +9,10 @@ from game.population import consume_food, grow_population
 from game.enlightenment import accumulate_enlightenment
 
 
+def raise_eof(_prompt):
+    raise EOFError
+
+
 # ---------------------------------------------------------------------------
 # GameState
 # ---------------------------------------------------------------------------
@@ -174,7 +178,7 @@ def test_combined_enlightenment():
 # ---------------------------------------------------------------------------
 
 def test_get_int_input_quits_on_eof(monkeypatch):
-    monkeypatch.setattr("builtins.input", lambda _prompt: (_ for _ in ()).throw(EOFError))
+    monkeypatch.setattr("builtins.input", raise_eof)
 
     with pytest.raises(civiltas.QuitGame):
         civiltas.get_int_input("Choice: ", 0, 4)
@@ -188,7 +192,7 @@ def test_get_int_input_accepts_quit_shortcut(monkeypatch):
 
 
 def test_main_exits_cleanly_on_eof(monkeypatch, capsys):
-    monkeypatch.setattr("builtins.input", lambda _prompt: (_ for _ in ()).throw(EOFError))
+    monkeypatch.setattr("builtins.input", raise_eof)
 
     civiltas.main()
 
