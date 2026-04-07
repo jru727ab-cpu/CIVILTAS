@@ -81,7 +81,8 @@ def main() -> None:
             print_status(state)
             print_build_menu(state)
 
-            choice = get_int_input("\n  Your choice (0 to skip, q to quit): ", 0, len(buildings))
+            choice_prompt = f"\n  Your choice (0 to skip, 1-{len(buildings)} to build, q to quit): "
+            choice = get_int_input(choice_prompt, 0, len(buildings))
             if choice > 0:
                 name = buildings[choice - 1]
                 if build(state, name):
