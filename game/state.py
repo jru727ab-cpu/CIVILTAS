@@ -33,10 +33,15 @@ class GameState:
 
     def advance_age_if_ready(self) -> bool:
         """Return True if the civilization advanced to a new age."""
-        next_index = self.age_index + 1
-        if next_index < len(ENLIGHTENMENT_THRESHOLDS) and self.enlightenment >= ENLIGHTENMENT_THRESHOLDS[next_index]:
+        advanced = False
+        while self.age_index + 1 < len(ENLIGHTENMENT_THRESHOLDS):
+            next_index = self.age_index + 1
+            if self.enlightenment < ENLIGHTENMENT_THRESHOLDS[next_index]:
+                break
             self.age_index = next_index
-            if self.age_index == len(AGES) - 1:
-                self.gnosis_unlocked = True
-            return True
-        return False
+            advanced = True
+
+        if advanced and self.age_index == len(AGES) - 1:
+            self.gnosis_unlocked = True
+
+        return advanced
