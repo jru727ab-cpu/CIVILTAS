@@ -41,7 +41,7 @@ class GameState:
             self.age_index = next_index
             advanced = True
 
-        if self.age_index == len(AGES) - 1:
+        if advanced and self.age_index == len(AGES) - 1:
             self.gnosis_unlocked = True
 
         return advanced
