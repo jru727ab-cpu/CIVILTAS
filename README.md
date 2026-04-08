@@ -24,7 +24,7 @@ Requires **Python 3.8+**.
 python civiltas.py
 ```
 
-Follow the on-screen prompts each turn to decide what to build or how to manage your civilization.
+Follow the on-screen prompts each turn to decide what to build or how to manage your civilization. Enter `q` at any prompt to leave the game cleanly.
 
 ## Project Structure
 
