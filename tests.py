@@ -1,11 +1,16 @@
 """Basic tests for CIVILTAS game logic."""
 
 import pytest
+import civiltas
 from game.state import GameState, AGES
 from game.resources import harvest
 from game.buildings import build, can_afford
 from game.population import consume_food, grow_population
 from game.enlightenment import accumulate_enlightenment
+
+
+def raise_eof(_prompt):
+    raise EOFError
 
 
 # ---------------------------------------------------------------------------
@@ -186,3 +191,30 @@ def test_combined_enlightenment():
     s.buildings["Library"] = 3
     gained = accumulate_enlightenment(s)
     assert gained == 2 * 2.0 + 3 * 5.0  # 4 + 15 = 19
+
+
+# ---------------------------------------------------------------------------
+# Input / CLI
+# ---------------------------------------------------------------------------
+
+def test_get_int_input_quits_on_eof(monkeypatch):
+    monkeypatch.setattr("builtins.input", raise_eof)
+
+    with pytest.raises(civiltas.QuitGame):
+        civiltas.get_int_input("Choice: ", 0, 4)
+
+
+def test_get_int_input_accepts_quit_shortcut(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _prompt: "q")
+
+    with pytest.raises(civiltas.QuitGame):
+        civiltas.get_int_input("Choice: ", 0, 4)
+
+
+def test_main_exits_cleanly_on_eof(monkeypatch, capsys):
+    monkeypatch.setattr("builtins.input", raise_eof)
+
+    civiltas.main()
+
+    output = capsys.readouterr().out
+    assert "Farewell. Your civilization awaits your return." in output
