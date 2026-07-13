@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CIVILTAS</title>
+    <meta name="description" content="CIVILTAS - A text-based civilization-building strategy game. Lead your settlement from survival to enlightenment." />
+    <title>CIVILTAS - Text-Based Strategy Game</title>
     <style>
       :root {
         color-scheme: dark;
         --bg: #111827;
         --panel: #1f2937;
+        --accent: #f59e0b;
+        --accent-light: #fbbf24;
         --text: #f9fafb;
         --muted: #cbd5e1;
-        --accent: #f59e0b;
+        --success: #10b981;
       }
 
       * {
@@ -20,116 +23,465 @@
 
       body {
         margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(160deg, var(--bg), #020617);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(160deg, var(--bg) 0%, #020617 100%);
         color: var(--text);
+        line-height: 1.6;
       }
 
       main {
-        max-width: 960px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 4rem 1.5rem 5rem;
-      }
-
-      .hero,
-      .panel {
-        background: rgba(31, 41, 55, 0.92);
-        border: 1px solid rgba(245, 158, 11, 0.25);
-        border-radius: 18px;
-        padding: 2rem;
-        box-shadow: 0 18px 45px rgba(2, 6, 23, 0.35);
+        padding: 2rem 1.5rem;
       }
 
       .hero {
-        margin-bottom: 1.5rem;
+        background: rgba(31, 41, 55, 0.92);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        border-radius: 18px;
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 18px 45px rgba(2, 6, 23, 0.35);
       }
 
-      h1,
-      h2 {
-        margin-top: 0;
-      }
-
-      h1 {
+      .hero h1 {
         font-size: clamp(2.5rem, 6vw, 4rem);
-        margin-bottom: 0.75rem;
+        margin: 0 0 0.75rem 0;
+        color: var(--accent-light);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .tagline {
+        font-size: 1.25rem;
+        color: var(--muted);
+        max-width: 50rem;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.1rem;
+        margin: 0 0 1.5rem 0;
+      }
+
+      .cta-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .cta, .cta-secondary {
+        display: inline-block;
+        padding: 0.9rem 1.5rem;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .cta {
+        background: var(--accent);
+        color: #111827;
+      }
+
+      .cta:hover {
+        background: var(--accent-light);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+      }
+
+      .cta-secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 2px solid var(--accent);
+      }
+
+      .cta-secondary:hover {
+        background: rgba(245, 158, 11, 0.1);
+        transform: translateY(-2px);
       }
 
       h2 {
         color: var(--accent);
+        font-size: 1.5rem;
+        margin: 0 0 1rem 0;
       }
 
-      p,
-      li {
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      .tagline {
-        font-size: 1.15rem;
-        max-width: 48rem;
-      }
-
-      .cta {
-        display: inline-block;
-        margin-top: 1rem;
-        padding: 0.9rem 1.35rem;
-        border-radius: 999px;
-        background: var(--accent);
-        color: #111827;
-        font-weight: 700;
-        text-decoration: none;
+      h3 {
+        color: var(--accent-light);
+        font-size: 1.1rem;
       }
 
       .grid {
         display: grid;
-        gap: 1.5rem;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        margin-bottom: 2rem;
+      }
+
+      .panel {
+        background: rgba(31, 41, 55, 0.92);
+        border: 1px solid rgba(245, 158, 11, 0.15);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(2, 6, 23, 0.3);
+      }
+
+      .panel:hover {
+        border-color: rgba(245, 158, 11, 0.35);
+        box-shadow: 0 15px 40px rgba(245, 158, 11, 0.1);
+      }
+
+      ul {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      li {
+        margin: 0.5rem 0;
+        color: var(--muted);
       }
 
       code {
         display: inline-block;
-        margin-top: 0.5rem;
-        padding: 0.2rem 0.45rem;
+        margin: 0.5rem 0;
+        padding: 0.3rem 0.6rem;
         border-radius: 0.4rem;
         background: rgba(15, 23, 42, 0.9);
         color: #fde68a;
+        font-family: 'Courier New', monospace;
+        font-size: 0.95rem;
       }
 
-      ul {
-        padding-left: 1.25rem;
-        margin-bottom: 0;
+      .code-block {
+        background: rgba(15, 23, 42, 0.95);
+        border-left: 3px solid var(--accent);
+        border-radius: 6px;
+        padding: 1rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+      }
+
+      .code-block code {
+        display: block;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: #fde68a;
+      }
+
+      .features {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(16, 185, 129, 0.05));
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .feature-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .feature-item {
+        padding: 1rem;
+      }
+
+      .feature-item h4 {
+        color: var(--success);
+        margin: 0 0 0.5rem 0;
+      }
+
+      .ages-timeline {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .age-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .age-card strong {
+        color: var(--accent-light);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 8px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--accent);
+      }
+
+      .stat-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--muted);
+        border-top: 1px solid rgba(245, 158, 11, 0.1);
+        margin-top: 3rem;
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        main {
+          padding: 1rem;
+        }
+
+        .hero {
+          padding: 2rem 1rem;
+        }
+
+        .cta-group {
+          flex-direction: column;
+        }
+
+        .cta, .cta-secondary {
+          width: 100%;
+          text-align: center;
+        }
       }
     </style>
   </head>
   <body>
     <main>
+      <!-- Hero Section -->
       <section class="hero">
-        <p>Civilization-building strategy, now published live.</p>
+        <p>Strategy · Survival · Enlightenment</p>
         <h1>CIVILTAS</h1>
         <p class="tagline">
-          Lead a fledgling settlement from survival to Gnosis in this text-based Python game.
-          Harvest resources, grow your population, raise monuments, and pursue enlightenment.
+          Lead a fledgling settlement from humble survival to the Age of Gnosis.
+          Harvest resources, grow your population, build civilization, and unlock esoteric knowledge.
         </p>
-        <a class="cta" href="https://github.com/jru727ab-cpu/CIVILTAS">View the source on GitHub</a>
+        <div class="cta-group">
+          <a class="cta" href="https://github.com/jru727ab-cpu/CIVILTAS">View on GitHub</a>
+          <a class="cta-secondary" href="#gameplay">Learn More</a>
+        </div>
       </section>
 
-      <section class="grid">
+      <!-- Quick Stats -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Ages to Discover</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Building Types</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100</div>
+          <div class="stat-label">Max Turns</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Replayability</div>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid">
+        <!-- Gameplay Section -->
         <article class="panel">
-          <h2>What you do</h2>
+          <h2>What You Do</h2>
+          <p>Every turn, make strategic decisions that shape your civilization's destiny.</p>
           <ul>
-            <li>Harvest food, wood, stone, and gold every turn.</li>
-            <li>Build farms, mines, temples, and libraries.</li>
-            <li>Balance growth, food consumption, and enlightenment.</li>
-            <li>Advance through four ages until you unlock Gnosis.</li>
+            <li>🌾 Harvest food, wood, stone, and gold</li>
+            <li>🏗️ Build farms, mines, temples, and libraries</li>
+            <li>👥 Grow your population through prosperity</li>
+            <li>✨ Accumulate enlightenment and advance ages</li>
+            <li>🔮 Unlock Gnosis for ultimate victory</li>
           </ul>
         </article>
 
+        <!-- How to Play Section -->
         <article class="panel">
-          <h2>Play locally</h2>
-          <p>Clone the repository and run the game with Python 3.8 or newer.</p>
-          <code>python civiltas.py</code>
+          <h2>Quick Start</h2>
+          <p>Clone and run the game locally with Python 3.8+:</p>
+          <div class="code-block">
+            <code>git clone https://github.com/jru727ab-cpu/CIVILTAS.git</code>
+          </div>
+          <div class="code-block">
+            <code>cd CIVILTAS && python civiltas.py</code>
+          </div>
+          <p style="color: var(--success); margin-top: 1rem;">Then follow the on-screen prompts to begin!</p>
         </article>
+
+        <!-- Core Mechanics Section -->
+        <article class="panel">
+          <h2>Core Mechanics</h2>
+          <ul>
+            <li><strong>Resources:</strong> Food, Wood, Stone, Gold</li>
+            <li><strong>Population:</strong> Grows with food, shrinks with hunger</li>
+            <li><strong>Buildings:</strong> Each has unique production bonuses</li>
+            <li><strong>Enlightenment:</strong> Path to advancement and victory</li>
+            <li><strong>Ages:</strong> 4 progression stages ending in Gnosis</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Features Section -->
+      <section class="features">
+        <h2 style="margin-top: 0;">Game Features</h2>
+        <div class="feature-row">
+          <div class="feature-item">
+            <h4>🎯 Strategic Depth</h4>
+            <p>Balance resource production, population growth, and enlightenment accumulation. Every decision matters.</p>
+          </div>
+          <div class="feature-item">
+            <h4>📈 Progression System</h4>
+            <p>Advance through four ages as your civilization develops. Each age brings new possibilities.</p>
+          </div>
+          <div class="feature-item">
+            <h4>🏛️ Building Economy</h4>
+            <p>Construct specialized buildings that boost production and unlock new gameplay mechanics.</p>
+          </div>
+          <div class="feature-item">
+            <h4>🧠 Enlightenment Path</h4>
+            <p>Temples and libraries generate enlightenment. Reach 300 points to unlock the hidden Gnosis.</p>
+          </div>
+          <div class="feature-item">
+            <h4>⚖️ Balanced Gameplay</h4>
+            <p>Carefully tuned mechanics ensure multiple viable strategies to reach victory.</p>
+          </div>
+          <div class="feature-item">
+            <h4>♻️ Endless Replay</h4>
+            <p>Play multiple games with different strategies. Can you reach Gnosis faster each time?</p>
+          </div>
+        </div>
       </section>
+
+      <!-- Ages Section -->
+      <div class="panel">
+        <h2 id="gameplay">The Four Ages</h2>
+        <p>Your civilization progresses through ages as enlightenment increases. Each threshold unlocks a new era of development.</p>
+        <div class="ages-timeline">
+          <div class="age-card">
+            <strong>Age of Survival</strong>
+            <p>0 EP</p>
+            <p style="font-size: 0.9rem; color: var(--muted);">Focus on gathering resources and feeding your population.</p>
+          </div>
+          <div class="age-card">
+            <strong>Age of Society</strong>
+            <p>50 EP</p>
+            <p style="font-size: 0.9rem; color: var(--muted);">Develop social structures and organized labor.</p>
+          </div>
+          <div class="age-card">
+            <strong>Age of Reason</strong>
+            <p>150 EP</p>
+            <p style="font-size: 0.9rem; color: var(--muted);">Build temples and pursue intellectual growth.</p>
+          </div>
+          <div class="age-card">
+            <strong>Age of Gnosis</strong>
+            <p>300 EP</p>
+            <p style="font-size: 0.9rem; color: var(--success);">Unlock hidden knowledge. Victory achieved!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buildings Section -->
+      <div class="panel" style="margin-top: 2rem;">
+        <h2>Buildings Overview</h2>
+        <div class="grid">
+          <div>
+            <h3>🌾 Farm</h3>
+            <p><strong>Cost:</strong> 10 Wood, 5 Stone</p>
+            <p><strong>Effect:</strong> +5 Food per turn</p>
+            <p>Essential for feeding your growing population.</p>
+          </div>
+          <div>
+            <h3>⛏️ Mine</h3>
+            <p><strong>Cost:</strong> 15 Wood, 10 Stone</p>
+            <p><strong>Effect:</strong> +3 Stone, +2 Gold per turn</p>
+            <p>Accelerates resource gathering for advanced buildings.</p>
+          </div>
+          <div>
+            <h3>🏛️ Temple</h3>
+            <p><strong>Cost:</strong> 20 Wood, 15 Stone, 5 Gold</p>
+            <p><strong>Effect:</strong> +2 Enlightenment per turn</p>
+            <p>Begin your path toward enlightenment.</p>
+          </div>
+          <div>
+            <h3>📚 Library</h3>
+            <p><strong>Cost:</strong> 25 Wood, 20 Stone, 10 Gold</p>
+            <p><strong>Effect:</strong> +5 Enlightenment per turn</p>
+            <p>Accelerate your civilization toward Gnosis.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources Section -->
+      <div class="panel" style="margin-top: 2rem;">
+        <h2>Resource Management</h2>
+        <div class="feature-row">
+          <div>
+            <h4>🌾 Food</h4>
+            <p>Population consumes 1.5 food per citizen per turn. Shortage causes starvation.</p>
+          </div>
+          <div>
+            <h4>🪵 Wood</h4>
+            <p>Required for most buildings. Base production from population workers.</p>
+          </div>
+          <div>
+            <h4>🪨 Stone</h4>
+            <p>Needed for construction. Mines provide significant stone production.</p>
+          </div>
+          <div>
+            <h4>💰 Gold</h4>
+            <p>Advanced currency for temples and libraries. Mines are primary source.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="panel" style="margin-top: 2rem; text-align: center; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 185, 129, 0.1));">
+        <h2>Ready to Lead Your Civilization?</h2>
+        <p>CIVILTAS is a text-based strategy game that challenges your planning and decision-making skills.</p>
+        <div class="cta-group" style="justify-content: center;">
+          <a class="cta" href="https://github.com/jru727ab-cpu/CIVILTAS">View Source on GitHub</a>
+          <a class="cta-secondary" href="https://github.com/jru727ab-cpu/CIVILTAS#getting-started">Read Documentation</a>
+        </div>
+      </div>
+
+      <footer>
+        <p>CIVILTAS — A text-based civilization-building strategy game</p>
+        <p><a href="https://github.com/jru727ab-cpu/CIVILTAS">GitHub Repository</a> · MIT License</p>
+      </footer>
     </main>
   </body>
 </html>
